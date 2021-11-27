@@ -1,0 +1,33 @@
+{% extends "base_template.html" %}
+{% block title %}
+Ooops!
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/error.css"/>
+{% endblock %}
+{% block content %}
+<section class="error">
+    <div class="col-md">
+        <div class="error-container">
+            <h1>Oooops!</h1>
+            {% if errorMsg %}
+            <h3>{{ errorMsg }}</h3>
+            <p>{{ errorDetails }}</p>
+
+            {% else %}
+            <h4>There is a unknown error occur. Please contact Toh Zhi Hong (1902700@sit.singaporetech.edu.sg) for assistance.</h4>
+            {% endif %}
+            <div class="wrapper">
+                <button type="button" class="btn btn-primary btn-lg">
+                    <a href={{url_for('landing')}}>Return to homepage</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+{% endblock %}
+
+</html>

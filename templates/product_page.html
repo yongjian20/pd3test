@@ -1,0 +1,79 @@
+{% extends "base_template.html" %}
+{% block title %}
+Product Item
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/products.css"/>
+<link rel="stylesheet" href="/static/css/alert.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+{% endblock %}
+{% block content %}
+<section class="products">
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid" id="products_container">
+            <figure class="post-modern-figure">
+                <img src="data:;base64,{{image_picture}}" width="300" height="300">
+            </figure>
+            <button onclick="report('{{item_id}}')"><img src="/static/img/ban-icon.png" width="30" height="30"></button>
+
+            <div class="align-middle">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="post-modern-caption">
+                            <div class="post-modern-price">Highest Bid: ${{value}}</div>
+                            <h5 class="post-modern-link">{{name}}</h5>
+                            <h5 class="post-modern-link">{{desc}}</h5>
+                            <p id="demo">{{time_left}}</p>
+                        </div>
+                        {% if errorMsg %}
+                        <div class="alert">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <h3>{{errorMsg}}</h3>
+                        </div>
+                        {% endif %}
+                        <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="text" pattern="\d*\.?\d*" id="value" class="form-control"
+                                       name="value" placeholder="Enter amount" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="otp_code" id="otp_code" class="form-control" name="otp_code"
+                                       placeholder="OTP Code"
+                                       maxlength="6" onkeypress="return isNumber(event)" required>
+                            </div>
+                            <input type="submit" name="" value="Bid" href={{url_for('products')}}>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="align-middle">
+                <h3>History</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col"><h5>Seller</h5></div>
+                            <div class="col"><h5>Amount</h5></div>
+                            <div class="col"><h5>Date Submitted</h5></div>
+                        </div>
+                        {% for bid in bids %}
+                        <div class="row">
+                            <div class="col"><p>{{bid[0]}}</p></div>
+                            <div class="col"><p>{{bid[1]}}</p></div>
+                            <div class="col"><p>{{bid[2]}}</p></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts%}
+<script type="text/javascript" charset="utf8" src="/static/js/timer.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/js/report.js"></script>
+{% endblock %}
+
+</html>

@@ -1,0 +1,56 @@
+{% extends "base_template.html" %}
+{% block title %}
+Login
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/login.css"/>
+<link rel="stylesheet" href="/static/css/alert.css"/>
+{% endblock %}
+{% block content %}
+<section class="login">
+    <div class="col-md">
+        <div class="align-middle">
+            <div class="card">
+                <form method="POST" class="box">
+                    {% if loginmsg %}
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <h3>{{loginmsg}} {{timestamp}}</h3>
+                    </div>
+                    {% endif %}
+                    <h1>Login</h1>
+                    <p class="text-muted"> Please enter your login and password</p>
+
+                    <div class="input-group">
+                        <p>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="Email"
+                                   required>
+                            <i class="bi bi-envelope"></i>
+                        </p>
+                    </div>
+
+
+                    <div class="input-group">
+                        <p>
+                            <input type="password" id="password" class="form-control" name="password"
+                                   placeholder="Password"
+                                   required>
+                            <i class="bi bi-eye-slash" id="togglePassword" aria-hidden="true"></i>
+                        </p>
+                    </div>
+                    <div class="input-group">{{ recaptcha }}</div>
+                    <a class="forgot text-muted" href="{{url_for('forget_password')}}">Forgot Password?</a><br>
+                    <a class="create text-muted" href={{url_for('create_account')}}>Create Account here.</a>
+                    <input type="submit" name="Login" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="/static/js/create_account.js"></script>
+{% endblock %}
+
+</html>

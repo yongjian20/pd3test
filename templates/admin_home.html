@@ -1,0 +1,84 @@
+{% extends "base_template.html" %}
+{% block title %}
+Admin Homepage
+{% endblock %}
+{% block head%}
+<style></style>
+{% endblock %}
+{% block content %}
+
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">Admin</div>
+        <div class="masthead-heading text-uppercase">Any report ?</div>
+        <a class="btn btn-primary btn-xl text-uppercase" href="{{url_for('admin_report')}}">Report</a>
+    </div>
+</header>
+
+<section class="page-section bg-light" id="products">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Products</h2>
+            <h3 class="section-subheading text-muted">Click for more information.</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="portfolio-item">
+                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="static/img/portfolio/oculus-quest-2.jpg" alt="..."/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Oculus Quest 2</div>
+                        <div class="portfolio-caption-subheading text-muted">Virtual Reality Device</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="static/img/close-icon.svg" alt="Close modal"/>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Oculus Quest 2</h2>
+                            <p class="item-intro text-muted">The 64 GB model.</p>
+                            <img class="img-fluid d-block mx-auto" src="static/img/portfolio/oculus-quest-2.jpg" alt="..."/>
+                            <p>Oculus Quest 2 is a virtual reality headset created by Oculus, a brand of Facebook. It is
+                                the successor to the Oculus Quest. The Quest 2 was officially unveiled on September 16,
+                                2020 during Facebook Connect 7.</p>
+                            <ul class="list-inline">
+                                <li>
+                                    <strong>Item:</strong>
+                                    Oculus Quest 2
+                                </li>
+                                <li>
+                                    <strong>Category:</strong>
+                                    Virtual Reality Device
+                                </li>
+                            </ul>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-times me-1"></i>
+                                Close Product
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts%}
+{% endblock %}
+</html>

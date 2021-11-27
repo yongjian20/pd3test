@@ -1,0 +1,60 @@
+{% extends "base_template.html" %}
+{% block title %}
+Products
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/products.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+{% endblock %}
+{% block content %}
+<section class="products">
+    <div>
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4"><i class="bi bi-bag pr-2"></i>Products</h1>
+                </div>
+            </div>
+
+            <div id="products_container" class="container">
+                <div class="row" id="addProducts">
+                    <a href={{url_for('add_product')}}>
+                        <button type="button" class="btn btn-success" id="addProductsBtn">
+                            <i class="bi bi-plus-circle-fill"></i> Add Product
+                        </button>
+                    </a>
+
+                </div>
+                <hr>
+                <div class="row" id="products">
+                    {% if allProducts %}
+                    {% for i in allProducts %}
+                    {% if i[4] != 'Banned' %}
+                    <div id="product" class="col-sm-4 product">
+                        <div class="product-inner text-center">
+                            <img src="data:;base64,{{i[6]|decodePic}}"><br/>
+                            Item Name:<p id="model"><b>{{i[1]}}</b></p>
+                            Description:<p id="description"><b>{{i[2]}}</b></p>
+                            Category: <p id="category"><b>{{i[5]}}</b></p>
+                            Price: <p id="price"><b>${{i[3]}}0</b></p>
+                            Status: <p id="status"><b>{{i[4]}}</b></p>
+                            {% if i[4] != 'Banned' or i[4] != 'Sold' %}
+                            <a href='/products/{{i[0]}}' id="link">More Information</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="/static/js/products.js"></script>
+{% endblock %}
+
+</html>

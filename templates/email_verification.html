@@ -1,0 +1,31 @@
+{% extends "base_template.html" %}
+{% block title %}
+Verify Email
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/login.css"/>
+{% endblock %}
+{% block content %}
+<section class="login">
+    <div class="col-md">
+        <div class="align-middle">
+            <div class="card">
+                <div class="box text-white">
+                    <h1>Email Verification Needed</h1>
+                    <h2>An email verification link has been sent to your registered email address.</h2>
+                    <p>
+                    <li>You have 5 minutes to verify your email.</li>
+                    <li>If you are unable to find the email, check from your Junk / Spam folder.</li>
+                    <li>Please ensure that the email address is valid.</li>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+{% endblock %}
+
+</html>

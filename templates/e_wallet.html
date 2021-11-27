@@ -1,0 +1,198 @@
+{% extends "base_template.html" %}
+{% block title %}
+E-Wallet
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/e_wallet.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+{% endblock %}
+{% block content %}
+<section class="profile_page">
+    <div class="profile py-4">
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4"><i class="bi bi-wallet pr-2"></i>E-Wallet</h1>
+                </div>
+            </div>
+            <div id="balance_container" class="container">
+                <h2>Credit Balance:</h2>
+                <h1 id="balance_amount" class="display-5">$
+                    {% if userbalance %}
+                    {{ "%.2f"|format(userbalance) }}
+                    {% else %}
+                    0
+                    {% endif %}
+                </h1>
+
+                <i type="button"
+                   class="btn btn-primary btn-circle btn-md text-dark modal-button bi bi-arrow-up" id="topupBtn"
+                   title="Top-Up"
+                   data-toggle="modal"
+                   href="#topupModal"></i>
+
+                <i type="button"
+                   class="btn btn-primary btn-circle btn-md text-dark modal-button bi bi-arrow-down" id="cashoutBtn"
+                   title="Cash-Out"
+                   data-toggle="modal"
+                   href="#cashoutModal"></i>
+
+            </div>
+            <div id="history_container" class="container">
+                <table id="history_table" class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Transaction type</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if walletTranscript %}
+                    {% for i in walletTranscript %}
+                    <tr>
+                        <td class="counterCell"></td>
+
+                        <td>${{ "%.2f"|format(i[0]) }}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]|formatDT}}</td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="5">There is no transactions history</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="topupModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="topupModalLabel">Credits Top Up</h5>
+                    <button type="button" class="btn-second-modal-close close closeBtn"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" id="creditForm" name="creditForm" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="bi bi-wallet-fill"></i> Top Up:
+                                <select class="form-control" id="creditBank" name="creditBank" required>
+                                    <option value="DBS">DBS</option>
+                                    <option value="OCBC">OCBC</option>
+                                    <option value="POSB">POSB</option>
+                                    <option value="UOB">UOB</option>
+                                </select>
+                                <br>
+                                <i class="bi bi-person-circle"></i> Credit Card Holder Name:
+                                <input type="text" inputmode="text" pattern="[A-Za-z ]{2,26}"
+                                       maxlength="26" id="cardHolderName"
+                                       name="cardHolderName"
+                                       required class="form-control validate"/>
+                                <br>
+                                <i class="bi bi-credit-card"></i> Credit Card Number:
+                                <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"
+                                       maxlength="19" placeholder="xxxx xxxx xxxx xxxx" id="creditCard"
+                                       name="creditCard"
+                                       required class="form-control validate"/>
+                                <br>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <i class="bi bi-calendar"></i> Expiry Date:
+                                        </td>
+                                        <td>
+                                            <i class="bi bi-shield-lock"></i> CCV Code:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="month" min="1900-01" max="2200-12" id="expiryDate"
+                                                   name="expiryDate"
+                                                   required class="form-control_expiry_date validate"/>
+                                        </td>
+                                        <td>
+                                            <input type="tel" inputmode="numeric" pattern="[0-9\s]{3}"
+                                                   maxlength="19" placeholder="xxx" id="ccvCode"
+                                                   name="ccvCode"
+                                                   required class="form-control_ccv_code validate"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="md-form mb-4">
+                                <i class="bi bi-currency-dollar"></i> Amount:
+                                <input type="number" id="creditAmount" name="creditAmount" class="form-control validate"
+                                       placeholder="Amount" value="" min="0.01" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger closeBtn">Cancel</button>
+                        <button type="submit" class="btn btn-success" value="creditBtn" name="creditBtn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="cashoutModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cashoutModalLabel">Credits Cash Out</h5>
+                    <button type="button" class="btn-second-modal-close close closeBtn"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" id="debitForm" name="debitForm" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="bi bi-cash"></i> Cash out:
+                                <select name="debitBank" class="form-control" required>
+                                    <option value="DBS">DBS</option>
+                                    <option value="OCBC">OCBC</option>
+                                    <option value="POSB">POSB</option>
+                                    <option value="UOB">UOB</option>
+                                </select>
+                                <br>
+                                <i class="bi bi-bank"></i> Bank Account Number:
+                                <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"
+                                       maxlength="19" placeholder="xxxx xxxx xxxx xxxx" id="debitCard" name="debitCard"
+                                       required class="form-control validate">
+                            </div>
+                            <div class="md-form mb-4">
+                                <i class="bi bi-currency-dollar"></i> Amount:
+                                <input type="number" id="debitAmount" name="debitAmount" class="form-control validate"
+                                       placeholder="Amount" min="0.01" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger closeBtn">Cancel</button>
+                        <button type="submit" class="btn btn-success" value="debitBtn" name="debitBtn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script type="text/javascript" charset="utf8" src="/static/js/dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="/static/js/e_wallet.js"></script>
+{% endblock %}
+
+</html>

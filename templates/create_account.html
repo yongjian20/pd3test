@@ -1,0 +1,115 @@
+{% extends "base_template.html" %}
+{% block title %}
+Create Account
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/login.css"/>
+<link rel="stylesheet" href="/static/css/alert.css"/>
+<style></style>
+{% endblock %}
+{% block content %}
+<section class="create_account">
+    <div class="col-md">
+        <div class="align-middle">
+            <div class="card">
+                <form method="POST" class="box">
+                    {% if errorMsg %}
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <h3>{{errorMsg}}</h3>
+                    </div>
+                    {% endif %}
+
+                    <h1>Sign Up</h1>
+                    <p class="text-muted"> Register Your Account<br>*Please key in valid email and mobile number*</p>
+                    <div class="input-group">
+                        <p>
+                            <input type="text" id="firstName" class="form-control" name="firstName"
+                                   placeholder="First Name"
+                                   onkeypress="return isLetters(event)" required/>
+                            <i class="bi bi-person-circle"></i>&#160
+                            <input type="text" id="lastName" class="form-control" name="lastName"
+                                   placeholder="Last Name"
+                                   onkeypress="return isLetters(event)" required/>
+                            <i class="bi bi-person-circle"></i>
+                        </p>
+                    </div>
+
+                    <div class="input-group">
+                        <p>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="Email"
+                                   onkeyup="checkEmail();" required/>
+                            <i class="bi bi-envelope"></i>&#160
+                            <input type="email" id="confirmEmail" class="form-control" name="confirmEmail"
+                                   placeholder="Confirm Email" onkeyup="checkEmail();" required/>
+                            <i class="bi bi-envelope"></i>
+                        </p>
+                    </div>
+
+                    <div class="input-group">
+                        <p>
+                            <input type="text" id="displayName" class="form-control" name="displayName"
+                                   placeholder="Display Name"
+                                   required/>
+                            <i class="bi bi-person-circle"></i>&#160
+                            <input type="tel" id="mobileNumber" class="form-control" name="mobileNumber"
+                                   placeholder="Mobile Number"
+                                   pattern="[8-9]{1}[0-9]{7}" maxlength="8"
+                                   title="Incorrect format. Please start with 8/9 and enter 8 digits mobile number"
+                                   onkeypress="return isNumber(event)"
+                                   required/>
+                            <i class="bi bi-phone"></i>
+
+                        </p>
+                    </div>
+
+                    <div class="input-group">
+                        <p>
+                            <input type="date" id="dob" class="form-control" name="dob" onfocus="(this.type='date')"
+                                   placeholder="Date of Birth" onchange="return checkDOB(event)" required>
+                            <input type="text" id="mailingAddress" class="form-control" name="mailingAddress"
+                                   placeholder="Mailing Address" required/>
+                            <i class="bi bi-house"></i>
+                        </p>
+                    </div>
+
+                    <div class="input-group">
+                        <p>
+                            <input type="password" id="password" class="form-control" name="password"
+                                   placeholder="Password"
+                                   inputmode="numeric" minlength="8" onkeyup="checkPassword();" required/>
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>&#160
+                            <input type="password" id="confirmPassword" class="form-control" name="confirmPassword"
+                                   placeholder="Confirm Password" inputmode="numeric" minlength="8"
+                                   onkeyup="checkPassword();"
+                                   required/>
+                            <i class="bi bi-eye-slash" id="togglePassword1"></i>
+                        </p>
+                    </div>
+
+                    <div class="col-sm-8 col-sm-offset-2 pt-3" id="pwd-container">
+                        <div class="pwstrength_viewport_progress"></div>
+                    </div>
+
+
+                    <div class="input-group">
+                        <span id='message'></span>
+                    </div>
+
+                    <h2 id="result"></h2>
+
+                    <a class="create text-muted" href={{url_for('login')}}>Already have an account? Login here.</a>
+                    <input type="submit" name="Register" value="Register" id="register">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pwstrength-bootstrap/2.2.1/pwstrength-bootstrap.min.js"></script>
+<script src="/static/js/create_account.js"></script>
+{% endblock %}
+
+</html>

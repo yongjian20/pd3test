@@ -1,0 +1,61 @@
+.fb {
+	display: flex;
+}
+
+.fb.fb-col {
+	flex-direction: column;
+}
+
+.fb.fb-row {
+	flex-direction: row;
+}
+
+.fb.fb-jc-sb {
+	justify-content: space-between;
+}
+
+.fb.fb-jc-sa {
+	justify-content: space-around;
+}
+
+.fb.fb-jc-se {
+	justify-content: space-evenly;
+}
+
+.fb.fb-jc-c {
+	justify-content: center;
+}
+
+.fb.fb-ai-c {
+	align-items: center;
+}
+
+.fb.fb-wrap {
+	flex-wrap: wrap;
+}
+
+.fb .fb-fw {
+	width: 100%;
+}
+
+.with-sidebar {
+  overflow: hidden;
+}
+
+.with-sidebar > * {
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc(10px / 2 * -1);
+}
+
+.with-sidebar > * > * {
+  margin: calc(10px / 2);
+  flex-basis: 300px;
+  flex-grow: 1;
+}
+
+.with-sidebar > * > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: calc(50% - 10px);
+}

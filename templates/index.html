@@ -1,0 +1,112 @@
+{% extends "base_template.html" %}
+{% block title %}
+Let's Bid
+{% endblock %}
+{% block head%}
+<style></style>
+{% endblock %}
+{% block content %}
+
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">Welcome To Let's Bid!</div>
+        <div class="masthead-heading text-uppercase">BID? SELL? PURCHASE!</div>
+        <a class="btn btn-primary btn-xl text-uppercase" href="{{url_for('login')}}">Products</a>
+    </div>
+</header>
+
+<section class="page-section bg-light" id="products">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Products</h2>
+            <h3 class="section-subheading text-muted">Our Recent Products. Click for more information.</h3>
+        </div>
+        <div class="row">
+            {% if allProducts %}
+            {% for i in allProducts %}
+            {% if i[4] != 'Banned' %}
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="portfolio-item">
+                    <a class="portfolio-link" data-bs-toggle="modal" href="#{{ i[1] }}">
+                        <img class="img-fluid_index" src="data:;base64,{{ i[6]|decodePic }}" alt="responsive image"/>
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">{{ i[1]}}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ i[5]}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-modal modal fade" id="{{ i[1] }}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="close-modal" data-bs-dismiss="modal">
+                        </div>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="modal-body">
+                                        <h2 class="text-uppercase">{{ i[1] }}</h2>
+                                        <img class="img-fluid_index" src="data:;base64,{{ i[6]|decodePic }}"
+                                             alt="responsive image"/><br>
+                                        <strong>Cost:</strong> $
+                                        {{ i[3]}}
+                                        <ul class="list-inline">
+                                            <li>
+                                                <strong>Item Description:</strong>
+                                                {{ i[2]}}
+                                            </li>
+                                            <li>
+                                                <strong>Category:</strong>
+                                                {{ i[5] }}
+                                            </li>
+                                        </ul>
+                                        <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
+                                                type="button">
+                                            <i class="fas fa-times me-1"></i>
+                                            Close Products
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">About</h2>
+            <h3 class="section-subheading text-muted">We are the best</h3>
+            <p>so.... enjoy have fun</p>
+            <p>joy peace love <3</p>
+        </div>
+    </div>
+</section>
+
+<section class="page-section" id="locate">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <h2 class="section-heading text-uppercase">Locate Us</h2>
+            <h3 class="section-subheading text-muted">Find us here.</h3>
+        </div>
+        <div class="row justify-content-md-center">
+            <iframe class="col-sm-6"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6653940525916!2d103.8465983152558!3d1.3774387618686434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da16e96db0a1ab%3A0x3d0be54fbbd6e1cd!2sSingapore%20Institute%20of%20Technology%20(SIT%40NYP)!5e0!3m2!1sen!2ssg!4v1632427884609!5m2!1sen!2ssg"
+                    height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts%}
+{% endblock %}
+
+</html>

@@ -1,0 +1,42 @@
+04/10/2021:
+disabled passwordAuthentication for ssh
+disabled PermitRootLogin for ssh
+installed UFW, fail2ban, mariadb-server, and Nginx
+changed ssh port to limit 1002/tcp
+allow ufw 1037 8888 5000 5001
+allow ufw 'Nginx Full'
+given correct file permission(0750 for folders and 0640 for files) and ownership (www-data) to /var/www/dabestteam 
+
+added user 'team-19' to group www-data
+
+installed python3 python3-pip python3-flask python3-gunicorn libmariadbclient-dev 
+
+set up dabestteam.service
+
+secured mysql using mysql_secure_installation()
+hardened mysql by editing /mysql/my.cnf
+change file permission of my.cnf to 0644
+disabled and deleted MySQL shell history (cat /dev/null > ~/.mysql_history)
+changed mysql default port from 3306 to 5001
+sign cert with letsEncrypt
+
+enabling Forward Secrecy
+hardening nginx.conf
+	- keepalive_timeout
+	- server_names_hash_bucket_size
+	- ssl protocol TLSV1.3
+	- gzip
+	- server_tokens off
+	- http2
+  harden nginx against ddos
+	- client_header_timeout
+	- client_body_timeout
+	- send_timeout
+
+
+
+
+19/10/2021:
+ufw allow 8443
+installed docker
+installed jenkins DinD

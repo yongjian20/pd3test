@@ -1,0 +1,39 @@
+{% extends "base_template.html" %}
+{% block title %}
+Login
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/login.css"/>
+<link rel="stylesheet" href="/static/css/alert.css"/>
+{% endblock %}
+{% block content %}
+<section class="login">
+    <div class="col-md">
+        <div class="align-middle">
+            <div class="card">
+                <form method="POST" class="box">
+                    {% if errorMsg %}
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <h3>{{errorMsg}}</h3>
+                    </div>
+                    {% endif %}
+                    <h1>Google Authenticator OTP Code</h1>
+                    <p class="text-muted"> Please enter your 6 Digit Google Authenticator code</p>
+                    <div class="input-group">
+                        <input type="otp_code" id="otp_code" class="form-control" name="otp_code" placeholder="OTP Code"
+                               maxlength="6" onkeypress="return isNumber(event)" required>
+                    </div>
+                    <input type="submit" name="" value="Login" href={{url_for('otp_login')}}>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="/static/js/create_account.js"></script>
+{% endblock %}
+
+</html>

@@ -1,0 +1,73 @@
+{% extends "base_template.html" %}
+{% block title %}
+Add Products
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/products.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+{% endblock %}
+{% block content %}
+<section class="products">
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4"><i class="bi bi-plus-circle-fill"></i>Add Products</h1>
+            </div>
+        </div>
+        <div class="container" id="products_container">
+            <figure class="post-modern-figure"><img id="output" src="/static/img/image_preview.png" alt=""
+                                                    width="300" height="300">
+            </figure>
+            <div class="align-middle">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" autocomplete="off" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" id="image_file" name="image_file"
+                                       accept="image/png, image/jpeg, image/jpg"
+                                       onchange="loadFile(event)" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="name" class="form-control"
+                                       name="name" placeholder="Enter name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="textarea" id="desc" class="form-control"
+                                       name="desc" placeholder="Enter description" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" pattern="\d*\.?\d*" id="value" class="form-control"
+                                       name="value" placeholder="Enter amount" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" min="0" max="365" id="days" class="form-control"
+                                       name="days" placeholder="Auction days" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" min="0" max="24" id="hours" class="form-control"
+                                       name="hours" placeholder="Auction hours" required>
+                            </div>
+                            <div class="form-group">
+                                <select name="category" class="form-control" id="category" required>
+                                    {% for category in categoryOption %}
+                                    <option value="{{category}}">{{category}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="submit" name="" class="btn btn-success" value="Submit"
+                                   href={{url_for('products')}}>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script type="text/javascript" charset="utf8" src="/static/js/preview_image.js"></script>
+{% endblock %}
+
+
+</html>

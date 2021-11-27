@@ -1,0 +1,106 @@
+/*
+This CSS consists of login.html, create_account.html, create_qrcode.html
+*/
+
+html{
+    height: 100%;
+}
+
+body {
+    /*padding: 0;*/
+    background-image: url("/static/img/background.jpg");
+}
+
+.footer {
+    position: fixed;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none
+/*    text-align: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px;
+    position: absolute;
+    background: #191919;*/
+}
+
+.card h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.card img {
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+#otp_code {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.box {
+    width: 100%;
+    padding: 40px;
+    position: absolute;
+    background: #191919;
+    text-align: center;
+    transition: 0.25s;
+
+}
+
+.box input[type="otp_code"]{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #ffc800;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: #6c757d;
+    transition: 0.25s
+}
+
+.box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.box input[type="otp_code"]:focus{
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.box input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.box input[type="submit"]:hover {
+    background: #2ecc71
+}
+
+.input-group {
+    width:50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    place-content: center;
+}

@@ -1,0 +1,156 @@
+{% extends "base_template.html" %}
+{% block title %}
+Profile
+{% endblock %}
+{% block head%}
+<link rel="stylesheet" href="/static/css/profile_page.css"/>
+<style></style>
+{% endblock %}
+{% block content %}
+<section class="profile_page">
+    <div class="profile py-4">
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4"><i class="bi bi-person-bounding-box pr-2"></i>User Profile</h1>
+                </div>
+            </div>
+            <div class="row">
+                {% if errorMsg %}
+                <div class="alert alert-primary">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <h4>{{errorMsg}}</h4>
+                </div>
+                {% endif %}
+                <div class="col-lg-4">
+                    <div id="side-profile" class="card shadow-sm">
+                        <div class="card-header bg-transparent text-center">
+                            {% if userPic %}
+                            <img src="data:;base64,{{userPic|decodePic}}" width="100cm" height="100cm"
+                                 style="border-radius:50%;">
+                            {% else %}
+                            <img src="/static/img/profile_pic.png" width="100cm" height="100cm"
+                                 style="border-radius:50%;">
+                            {% endif %}
+                            <h3>{{session['displayName']}}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0"><strong class="pr-1">Email Address: </strong>{{session['email']}}</p>
+                            <p class="mb-0"><strong class="pr-1">Join Date:</strong>{{session['joinDate']|formatDT}}</p>
+                            {% if userbalance %}
+                            <p class="mb-0"><strong class="pr-1">Credit Balance: $</strong>{{
+                                "%.2f"|format(userbalance)}}</p>
+                            {% else %}
+                            <p class="mb-0"><strong class="pr-1">Credit Balance: $</strong> 0.00</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-transparent border-0">
+                            <h2 class="mb-0"><i class="bi bi-person-circle pr-2"></i>User Information</h2>
+                        </div>
+                        <div class="card-body pt-0">
+                            <form method="POST" id="profile_form" enctype="multipart/form-data">
+                                <table class="table table-bordered">
+                                    <tr><span id='message'></span></tr>
+                                    <tr>
+                                        <th width="30%"><label for="firstName">First Name:</label></th>
+                                        <td><input type="text" id="firstName" name="firstName"
+                                                   value="{{session['firstName']}}" disabled="true"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="lastName">Last Name:</label></th>
+                                        <td><input type="text" id="lastName" name="lastName"
+                                                   value="{{session['lastName']}}" disabled="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="mobileNumber">Mobile Number:</label></th>
+                                        <td><input type="number" id="mobileNumber" name="mobileNumber"
+                                                   value="{{session['mobile']}}" disabled="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="dob">Date of Birth:</label></th>
+                                        <td><input type="text" id="dob" name="dob"
+                                                   value="{{session['birthDate']|formatDT}}" disabled="true"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="mailingAddress">Mailing Address:</label></th>
+                                        <td><input type="text" id="mailingAddress" name="mailingAddress"
+                                                   value="{{session['mailingAddress']}}" disabled="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="deliveryAddress">Delivery Address:</label></th>
+                                        <td><input type="text" id="deliveryAddress" name="deliveryAddress"
+                                                   value="{{session['deliveryAddress']}}" disabled='true'/></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label for="image_file">Change Profile Picture:</label></th>
+                                        <td><input type="file" id="image_file" name="image_file"
+                                                   accept="image/png, image/jpeg, image/jpg"
+                                                   disabled="true"></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label>Old Password:</label></th>
+                                        <td>
+                                            <input type="password" id="oldPassword" class="form-control"
+                                                   name="oldPassword"
+                                                   placeholder="Old Password" inputmode="numeric" minlength="8"
+                                                   disabled='true'
+                                                   onkeyup="checkPassword();"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label>Password:</label></th>
+                                        <td>
+                                            <input type="password" id="password" class="form-control" name="password"
+                                                   placeholder="Password" inputmode="numeric" minlength="8"
+                                                   disabled='true'
+                                                   onkeyup="checkPassword();"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%"><label>Confirm Password:</label></th>
+                                        <td>
+                                            <input type="password" id="confirmPassword" class="form-control"
+                                                   name="confirmPassword" placeholder="Confirm Password"
+                                                   inputmode="numeric" minlength="8" disabled='true'
+                                                   onkeyup="checkPassword();"/>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" class="text-right">
+                                            <button type="button" class="btn btn-dark" value="edit" id="editBtn"
+                                                    onclick="enableEdits()">
+                                                Edit
+                                            </button>
+                                            <button type="submit" class="btn btn-success" value="save" name="save"
+                                                    id="saveBtn">
+                                                Save Changes
+                                            </button>
+                                            <button type="button" class="btn btn-danger" value="cancel" id="cancelBtn">
+                                                Cancel
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="/static/js/profile_page.js"></script>
+{% endblock %}
+
+</html>

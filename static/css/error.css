@@ -1,0 +1,23 @@
+.wrapper {
+    text-align: center;
+}
+
+.button{
+    position: absolute;
+    top: 50%;
+}
+
+a,
+a:hover {
+    color: black;
+}
+
+.error-container{
+    margin: 90px;
+    padding: 70px 0;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+}
